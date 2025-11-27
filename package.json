@@ -1,0 +1,42 @@
+{
+  "name": "ignition",
+  "version": "1.0.0",
+  "description": "Spacerace starter Shopify theme.",
+  "author": "Spacerace Development",
+  "license": "ISC",
+  "browserslist": "> 0.5%, cover 90%, iOS >= 13, last 3 versions, not dead",
+  "targets": {
+    "default": {
+      "publicUrl": "./",
+      "distDir": "theme/assets"
+    }
+  },
+  "scripts": {
+    "build-js-prod": "parcel build scripts/sections/*.js --no-source-maps --no-cache && parcel build scripts/blocks/*.js --no-source-maps --no-cache && parcel build scripts/snippets/*.js --no-source-maps --no-cache && parcel build scripts/*.js --no-source-maps --no-cache",
+    "build-scss-prod": "parcel build styles/*.scss --no-source-maps --no-cache && parcel build styles/components/*.scss --no-source-maps --no-cache",
+    "dev": "NODE_ENV=development && concurrently \"parcel watch scripts/sections/*.js --no-hmr\" \"parcel watch scripts/blocks/*.js --no-hmr\" \"parcel watch scripts/snippets/*.js --no-hmr\" \"parcel watch scripts/*.js --no-hmr\" \"parcel watch styles/components/*.scss --no-hmr\" \"parcel watch styles/*.scss --no-hmr\" \"shopify theme dev -e dev\"",
+    "build": "NODE_ENV=production && npm run clean && npm run build-js-prod && npm run build-scss-prod",
+    "clean": "rm -rf .parcel-cache && rm -rf ./theme/assets/nss-*",
+    "dev-windows": "cross-env NODE_ENV=development concurrently \"parcel watch scripts/sections/*.js --no-hmr\" \"parcel watch scripts/blocks/*.js --no-hmr\" \"parcel watch scripts/snippets/*.js --no-hmr\" \"parcel watch scripts/*.js --no-hmr\" \"parcel watch styles/components/*.scss --no-hmr\" \"parcel watch styles/*.scss --no-hmr\" \"shopify theme dev -e dev\"",
+    "clean-windows": "node scripts/clean.js",
+    "build-windows": "cross-env NODE_ENV=production npm run clean-windows && npm run build-js-prod && npm run build-scss-prod",
+    "deploy:dev": "npm run build && shopify theme push -e dev",
+    "pull:dev": "shopify theme pull -e dev --nodelete",
+    "pull:live": "shopify theme pull -e live --nodelete",
+    "push:dev": "shopify theme push -e dev",
+    "push:live": "shopify theme push -e live"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.15.1",
+    "concurrently": "^7.1.0",
+    "cross-env": "^7.0.3",
+    "parcel": "^2.15.1",
+    "path-browserify": "^1.0.1",
+    "process": "^0.11.10",
+    "rimraf": "^6.1.0",
+    "sass": "^1.89.0"
+  },
+  "dependencies": {
+    "swiper": "^11.2.6"
+  }
+}

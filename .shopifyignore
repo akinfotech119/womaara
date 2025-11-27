@@ -1,0 +1,12 @@
+yarn.lock
+package.json
+package-lock.json
+tailwind.config.json
+postcss.config.js
+.browserslistrc
+.uglifyrc
+.parcel-cache
+config.yml
+README.md
+CONTRIBUTING.md
+recharge-theme

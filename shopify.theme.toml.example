@@ -1,0 +1,5 @@
+[environments.dev]
+theme = "############"
+store = "lsg-dev02"
+path = "theme"
+#theme-editor-sync = true

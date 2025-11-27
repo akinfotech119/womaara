@@ -1,0 +1,49 @@
+$page-width: var(--nss-page-width);
+$page-max-width: var(--nss-page-max-width);
+$grid-gutter: var(--nss-grid-gutter);
+
+$grid-small: 414px;
+$grid-medium: 750px;
+$grid-large: 990px;
+$grid-widescreen: 1440px;
+$grid-widescreen-xl: 1920px;
+
+$small: 'small';                        // 414px to 749px
+$small-up: 'small-up';                  // >= 414px
+$small-down: 'small-down';              // <= 413px
+
+$medium: 'medium';                      // 750px to 989px
+$medium-up: 'medium-up';                // >= 750px
+$medium-down: 'medium-down';            // <= 989px
+
+$large: 'large';                        // 990px to 1439px
+$large-up: 'large-up';                  // >= 990px
+$large-down: 'large-down';              // <= 1439px
+
+$widescreen: 'widescreen';              // 1440px to 1919px
+$widescreen-up: 'widescreen-up';        // >= 1400px
+$widescreen-down: 'widescreen-down';    // <= 1919px
+
+$widescreen-xl-up: 'widescreen-xl-up';  // >= 1920px
+
+// The `$breakpoints` list is used to build our media queries.
+// You can use these in the media-query mixin.
+$breakpoints: (
+  $small '(min-width: #{$grid-small}) and (max-width: #{$grid-medium - 1})',
+  $small-up '(min-width: #{$grid-small})',
+  $small-down '(max-width: #{$grid-medium - 1})',
+
+  $medium '(min-width: #{$grid-medium}) and (max-width: #{$grid-large - 1})',
+  $medium-up '(min-width: #{$grid-medium})',
+  $medium-down '(max-width: #{$grid-large - 1})',
+
+  $large '(min-width: #{$grid-large}) and (max-width: #{$grid-widescreen - 1})',
+  $large-up '(min-width: #{$grid-large})',
+  $large-down '(max-width: #{$grid-widescreen - 1})',
+
+  $widescreen '(min-width: #{$grid-widescreen}) and (max-width: #{$grid-widescreen-xl - 1})',
+  $widescreen-up '(min-width: #{$grid-widescreen})',
+  $widescreen-down '(max-width: #{$grid-widescreen-xl - 1})',
+
+  $widescreen-xl-up '(min-width: #{$grid-widescreen-xl})'
+);
