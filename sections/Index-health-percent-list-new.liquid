@@ -1,0 +1,252 @@
+{{ "Index-health-percent-list-new.css" | asset_url | stylesheet_tag }}
+<script src="{{ 'Index-health-percent-list-new.js' | asset_url }}" defer></script>
+
+{%- liquid
+    assign background_color = section.settings.background_color
+    assign information_color = section.settings.information_color
+    assign desktop_top_padding = section.settings.desktop_top_padding
+    assign desktop_bottom_padding = section.settings.desktop_bottom_padding
+    assign mobile_top_padding = section.settings.mobile_top_padding
+    assign mobile_bottom_padding = section.settings.mobile_bottom_padding
+-%}
+
+{%- style -%}
+    [data-section-id='{{ section.id }}'] {
+        background-color: {{ background_color }};
+        color: {{ information_color }};
+    }
+
+    @media (min-width: 0px) and (max-width: 989px) {
+        [data-section-id='{{ section.id }}'] {
+            padding: {{ mobile_top_padding }}px 0 {{ mobile_bottom_padding }}px;
+        }
+    }
+
+    @media (min-width: 990px) and (max-width: 9999px) {
+        [data-section-id='{{ section.id }}'] {
+            padding: {{ desktop_top_padding }}px 0 {{ desktop_bottom_padding }}px;
+        }
+    }
+{%- endstyle -%}
+
+{%- if section.settings.heading_text != blank or section.settings.details_text != blank or section.blocks.size > 0 -%}
+    <section class="Index_health_percent_list_main_new"  data-section-id="{{ section.id }}">
+        <div class="page-width">
+            <div class="Index_health_percent_list_inner_new">
+                {%- if section.settings.outside_image != blank and section.settings.inside_image != blank -%}
+                    <div class="Index_health_percent_list_round_new">
+                        {%- if section.settings.outside_image != blank -%}
+                            <div class="Index_health_percent_list_round_outside_new">
+                                {% render 'responsive-image-new',
+                                    desktop_image: section.settings.outside_image,
+                                    mobile_image: section.settings.outside_image,
+                                    class: 'Custom_image_new',
+                                    sizes: '(max-width: 749px) 100vw, 100vw',
+                                    fetchpriority: 'low', 
+                                %}
+                            </div>
+                        {%- endif -%}
+                        {%- if section.settings.inside_image != blank -%}
+                            <div class="Index_health_percent_list_round_inside_new">
+                                {% render 'responsive-image-new',
+                                    desktop_image: section.settings.inside_image,
+                                    mobile_image: section.settings.inside_image,
+                                    class: 'Custom_image_new',
+                                    sizes: '(max-width: 749px) 100vw, 100vw',
+                                    fetchpriority: 'low', 
+                                %}
+                            </div>
+                        {%- endif -%}
+                    </div>  
+                {%- endif -%}
+                {%- if section.settings.heading_text != blank or section.settings.details_text != blank -%}
+                    <div class="Index_health_percent_list_boths_new">
+                        {%- if section.settings.heading_text != blank -%}
+                            <div class="Large_title_new Index_health_percent_list_boths_title_new">
+                                <{{ section.settings.heading_size }}>
+                                    {{ section.settings.heading_text }}
+                                </{{ section.settings.heading_size }}>
+                            </div>
+                        {%- endif -%}
+                        {%- if section.settings.details_text != blank -%}
+                            <div class="Large_info_new Index_health_percent_list_boths_infos_new">
+                                {{ section.settings.details_text }}
+                            </div>
+                        {%- endif -%}
+                    </div>
+                {%- endif -%}
+                {%- if section.blocks.size > 0 -%}
+                    <div class="Index_health_percent_list_loops_new">
+                        {%- for block in section.blocks -%}
+                            {%- if block.settings.percent_number_text != blank and block.settings.percent_details_text != blank -%}
+                                <div class="Index_health_percent_list_loops_block_new">
+                                    {%- if block.settings.percent_number_text != blank -%}
+                                        {%- assign percent_number_text = block.settings.percent_number_text -%}
+                                        <div class="Index_health_percent_list_loops_block_title_new">
+                                            {%- if percent_number_text < 0 -%}
+                                                <svg width="21" height="8" viewBox="0 0 21 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.2775 0.568807H21C21 1.66972 20.8496 2.67278 20.5488 3.57798C20.248 4.48318 19.8218 5.26605 19.2704 5.92661C18.7189 6.58716 18.0609 7.10092 17.2963 7.46789C16.5443 7.82263 15.7108 8 14.7959 8C13.7681 8 12.8532 7.79816 12.051 7.3945C11.2614 6.99083 10.4029 6.37309 9.47538 5.54128C8.9239 5.01529 8.40376 4.61162 7.91495 4.33028C7.43867 4.04893 6.9248 3.90826 6.37332 3.90826C5.84691 3.90826 5.38944 4.05505 5.0009 4.34862C4.62489 4.6422 4.32408 5.04587 4.09848 5.55963C3.88541 6.06116 3.77887 6.64832 3.77887 7.3211L0 7.30275C0 6.20183 0.144136 5.20489 0.432408 4.31193C0.733214 3.40673 1.15936 2.63609 1.71083 2C2.26231 1.35168 2.91406 0.856269 3.66607 0.513761C4.41808 0.171254 5.25157 0 6.16652 0C7.19427 0 8.12802 0.214067 8.96777 0.642202C9.80752 1.0581 10.6535 1.66361 11.5058 2.45872C12.0824 2.99694 12.6088 3.40061 13.085 3.66972C13.5613 3.93884 14.0627 4.07339 14.5891 4.07339C15.1155 4.07339 15.5792 3.92049 15.9803 3.61468C16.3814 3.30887 16.6947 2.89297 16.9203 2.36697C17.1585 1.84098 17.2775 1.24159 17.2775 0.568807Z" fill="#3D3140"/></svg>
+                                            {%- endif -%}
+                                            {{ block.settings.percent_number_text }}<sup>%</sup>
+                                        </div>
+                                    {%- endif -%}
+                                    {%- if block.settings.percent_details_text != blank -%}
+                                        <div class="Medium_info_new Index_health_percent_list_loops_block_infos_new">
+                                            {{ block.settings.percent_details_text }}
+                                        </div>
+                                    {%- endif -%}
+                                </div>  
+                            {%- endif -%}
+                        {%- endfor -%}
+                    </div>
+                {%- endif -%}
+            </div>
+        </div>
+    </section>
+{%- endif -%}  
+
+{% schema %}
+  {
+    "name": "Index Health Percent List",
+    "class": "Index_health_percent_list_new",
+    "settings": [
+        {
+            "type": "header",
+            "content": "==== Color Settings ===="
+        },
+        {
+            "type": "color",
+            "id": "background_color",
+            "label": "Select Background Color",
+            "default": "#FFFAFA"
+        },
+        {
+            "type": "color",
+            "id": "information_color",
+            "label": "Select Information Color",
+            "default": "#3D3140"
+        },
+        {
+            "type": "header",
+            "content": "==== Layout Settings ===="
+        },
+        {
+            "type": "number",
+            "id": "desktop_top_padding",
+            "label": "Add Desktop Top Padding",
+            "default": 110
+        },
+        {
+            "type": "number",
+            "id": "desktop_bottom_padding",
+            "label": "Add Desktop Bottom Padding",
+            "default": 0
+        },
+        {
+            "type": "number",
+            "id": "mobile_top_padding",
+            "label": "Add Mobile Top Padding",
+            "default": 180
+        },
+        {
+            "type": "number",
+            "id": "mobile_bottom_padding",
+            "label": "Add Mobile Bottom Padding",
+            "default": 72
+        },
+        {
+          "type": "image_picker",
+          "id": "outside_image",
+          "label": "Add Outside Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "inside_image",
+          "label": "Add Inside Image"
+        },
+        {
+            "type": "select",
+            "id": "heading_size",
+            "label": "Select Heading Size",
+            "default": "h2",
+            "options": [
+                {
+                    "label": "H1",
+                    "value": "h1"
+                },
+                {
+                    "label": "H2",
+                    "value": "h2"
+                },
+                {
+                    "label": "H3",
+                    "value": "h3"
+                },
+                {
+                    "label": "H4",
+                    "value": "h4"
+                },
+                {
+                    "label": "H5",
+                    "value": "h5"
+                },
+                {
+                    "label": "H6",
+                    "value": "h6"
+                },
+                {
+                    "label": "Span",
+                    "value": "span"
+                }
+            ]
+        },
+        {
+            "type": "textarea",
+            "id": "heading_text",
+            "label": "Add Heading Text",
+            "default": "Creating a world where a <span>woman’s health</span> is cared the way it truly should be!"
+        },
+        {
+            "type": "richtext",
+            "id": "details_text",
+            "label": "Add Details Text",
+            "default": "<p>We carry a love for lifelong learning, articulated in everything we express, building a community that comes together with the right knowledge and well-deserved confidence.</p>"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "percent-with-text",
+            "name": "Percent With Text",
+            "settings": [
+                {
+                    "type": "number",
+                    "id": "percent_number_text",
+                    "label": "Add Percent Number Text",
+                    "default": 80
+                },
+                {
+                    "type": "richtext",
+                    "id": "percent_details_text",
+                    "label": "Add Percent Details Text",
+                    "default": "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Index Health Percent List",
+            "blocks": [
+                {
+                    "type": "percent-with-text"
+                },
+                {
+                    "type": "percent-with-text"
+                },
+                {
+                    "type": "percent-with-text"
+                }
+            ]
+        }
+    ]
+  }
+{% endschema %}

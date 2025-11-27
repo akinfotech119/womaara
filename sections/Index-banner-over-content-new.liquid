@@ -1,0 +1,249 @@
+{{ "Index-banner-over-content-new.css" | asset_url | stylesheet_tag }}
+
+{%- liquid
+    assign background_color = section.settings.background_color
+    assign information_color = section.settings.information_color
+    assign desktop_top_padding = section.settings.desktop_top_padding
+    assign desktop_bottom_padding = section.settings.desktop_bottom_padding
+    assign mobile_top_padding = section.settings.mobile_top_padding
+    assign mobile_bottom_padding = section.settings.mobile_bottom_padding
+-%}
+
+{%- style -%}
+    [data-section-id='{{ section.id }}'] {
+        background-color: {{ background_color }};
+        color: {{ information_color }};
+    }
+
+    @media (min-width: 0px) and (max-width: 989px) {
+        [data-section-id='{{ section.id }}'] .Index_banner_over_content_maindetail_new {
+            padding: {{ mobile_top_padding }}px 0 {{ mobile_bottom_padding }}px;
+        }
+    }
+
+    @media (min-width: 990px) and (max-width: 9999px) {
+        [data-section-id='{{ section.id }}'] .Index_banner_over_content_maindetail_new {
+            padding: {{ desktop_top_padding }}px 0 {{ desktop_bottom_padding }}px;
+        }
+    }
+{%- endstyle -%}
+
+{%- if section.settings.desktop_video != blank or section.settings.desktop_image != blank or section.settings.mobile_video != blank or section.settings.mobile_image != blank or section.settings.heading_text != blank or section.settings.details_text != blank or section.settings.button_link != blank -%}
+    <section class="Index_banner_over_content_main_new"  data-section-id="{{ section.id }}">
+        <div class="Index_banner_over_content_inner_new">
+            {%- if section.settings.desktop_video != blank or section.settings.desktop_image != blank or section.settings.mobile_video != blank or section.settings.mobile_image != blank -%}
+                {%- if section.settings.desktop_video != blank or section.settings.desktop_image != blank -%}
+                    <div class="Index_banner_over_content_static_new Desktop_only_new">
+                        {%- if section.settings.desktop_video != blank -%}
+                            {{ section.settings.desktop_video | video_tag: class:'Desktop_image_new', image_size: 'master', controls: false, autoplay: true, loop: true }}
+                        {%- elsif section.settings.desktop_image != blank -%}
+                            {% render 'responsive-image-new',
+                                desktop_image: section.settings.desktop_image,
+                                mobile_image: section.settings.desktop_image,
+                                class: 'Desktop_image_new',
+                                sizes: '(max-width: 749px) 100vw, 100vw',
+                                fetchpriority: 'low', 
+                            %}
+                        {%- endif -%}
+                    </div>
+                {%- endif -%}
+                {%- if section.settings.mobile_video != blank or section.settings.mobile_image != blank -%}
+                    <div class="Index_banner_over_content_static_new Mobile_only_new">
+                        {%- if section.settings.mobile_video != blank -%}
+                            {{ section.settings.mobile_video | video_tag: class:'Mobile_image_new', image_size: 'master', controls: false, autoplay: true, loop: true }}
+                        {%- elsif section.settings.mobile_image != blank -%}
+                            {% render 'responsive-image-new',
+                                desktop_image: section.settings.mobile_image,
+                                mobile_image: section.settings.mobile_image,
+                                class: 'Mobile_image_new',
+                                sizes: '(max-width: 749px) 100vw, 100vw',
+                                fetchpriority: 'low', 
+                            %}
+                        {%- endif -%}
+                    </div>
+                {%- endif -%}
+            {%- endif -%}
+            {%- if section.settings.heading_text != blank or section.settings.details_text != blank or section.settings.button_link != blank -%}
+                <div class="Index_banner_over_content_maindetail_new">
+                    <div class="page-width">
+                        <div class="Index_banner_over_content_innerdetail_new">
+                            {%- if section.settings.heading_text != blank -%}
+                                <div class="Common_title_new Index_banner_over_content_innerdetail_title_new">
+                                    <{{ section.settings.heading_size }}>
+                                        {{ section.settings.heading_text }}
+                                    </{{ section.settings.heading_size }}>
+                                </div>
+                            {%- endif -%}
+                            {%- if section.settings.details_text != blank -%}
+                                <div class="Large_info_new Index_banner_over_content_innerdetail_infos_new">
+                                    {{ section.settings.details_text }}
+                                </div>
+                            {%- endif -%}
+                            {%- if section.settings.button_text != blank and section.settings.button_link != blank -%}
+                                <div class="Index_banner_over_content_innerdetail_button_new">
+                                    <a href="{{ section.settings.button_link }}" class="{{ section.settings.button_style }}">
+                                        {{ section.settings.button_text }}
+                                    </a>
+                                </div>
+                            {%- endif -%}
+                        </div>
+                    </div>
+                </div>
+            {%- endif -%}
+        </div>
+    </section>
+{%- endif -%}  
+
+{% schema %}
+{
+    "name": "Index Banner Over Content",
+    "class": "Index_banner_over_content_new",
+    "settings": [
+        {
+            "type": "header",
+            "content": "==== Color Settings ===="
+        },
+        {
+            "type": "color",
+            "id": "background_color",
+            "label": "Select Background Color",
+            "default": "#EFEFEF"
+        },
+        {
+            "type": "color",
+            "id": "information_color",
+            "label": "Select Information Color",
+            "default": "#FFFFFF"
+        },
+        {
+            "type": "header",
+            "content": "==== Layout Settings ===="
+        },
+        {
+            "type": "number",
+            "id": "desktop_top_padding",
+            "label": "Add Desktop Top Padding",
+            "default": 70
+        },
+        {
+            "type": "number",
+            "id": "desktop_bottom_padding",
+            "label": "Add Desktop Bottom Padding",
+            "default": 70
+        },
+        {
+            "type": "number",
+            "id": "mobile_top_padding",
+            "label": "Add Mobile Top Padding",
+            "default": 56
+        },
+        {
+            "type": "number",
+            "id": "mobile_bottom_padding",
+            "label": "Add Mobile Bottom Padding",
+            "default": 56
+        },
+        {
+          "type": "video",
+          "id": "desktop_video",
+          "label": "Add Desktop Video"
+        },
+        {
+          "type": "image_picker",
+          "id": "desktop_image",
+          "label": "Add Desktop Image"
+        },
+        {
+          "type": "video",
+          "id": "mobile_video",
+          "label": "Add Mobile Video"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Add Mobile Image"
+        },
+        {
+            "type": "select",
+            "id": "heading_size",
+            "label": "Select Heading Size",
+            "default": "h2",
+            "options": [
+                {
+                    "label": "H1",
+                    "value": "h1"
+                },
+                {
+                    "label": "H2",
+                    "value": "h2"
+                },
+                {
+                    "label": "H3",
+                    "value": "h3"
+                },
+                {
+                    "label": "H4",
+                    "value": "h4"
+                },
+                {
+                    "label": "H5",
+                    "value": "h5"
+                },
+                {
+                    "label": "H6",
+                    "value": "h6"
+                },
+                {
+                    "label": "Span",
+                    "value": "span"
+                }
+            ]
+        },
+        {
+            "type": "textarea",
+            "id": "heading_text",
+            "label": "Add Heading Text",
+            "default": "Science that <span>works with your body,</span> not against it."
+        },
+        {
+            "type": "richtext",
+            "id": "details_text",
+            "label": "Add Details Text",
+            "default": "<p>We believe intimate health should be guided by evidence. That’s why our formulations are built on deep research, clinical precision, and respect for your body’s natural balance.</p>"
+        },
+        {
+            "type": "text",
+            "id": "button_text",
+            "label": "Add Button Text",
+            "default": "Read The Science Behind"
+        },
+        {
+            "type": "url",
+            "id": "button_link",
+            "label": "Add Button Link",
+            "default": "/"
+        },
+        {
+            "type": "select",
+            "id": "button_style",
+            "label": "Add Button Style",
+            "default": "button Common_button_new",
+            "options": [
+                {
+                    "label": "Primary Button",
+                    "value": "button Common_button_new"
+                },
+                {
+                    "label": "Secondary Button",
+                    "value": "button Common_button_new Button_white_new"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Index Banner Over Content"
+        }
+    ]
+}
+{% endschema %}

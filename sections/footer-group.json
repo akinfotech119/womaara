@@ -1,0 +1,144 @@
+{
+  "type": "footer",
+  "name": "Footer",
+  "sections": {
+    "footer_m9NzUG": {
+      "type": "footer",
+      "blocks": {
+        "menu_kaEAxA": {
+          "type": "menu",
+          "name": "t:names.menu",
+          "settings": {
+            "menu": "main-menu",
+            "heading": "Shop",
+            "menu_spacing": 0,
+            "show_as_accordion": true,
+            "accordion_icon": "plus",
+            "accordion_dividers": true,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "heading_preset": "",
+            "link_preset": "",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "menu_NKfMpF": {
+          "type": "menu",
+          "name": "t:names.menu",
+          "settings": {
+            "menu": "main-menu",
+            "heading": "Learn",
+            "menu_spacing": 0,
+            "show_as_accordion": true,
+            "accordion_icon": "plus",
+            "accordion_dividers": true,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "heading_preset": "",
+            "link_preset": "",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "menu_gkRMgf": {
+          "type": "menu",
+          "name": "t:names.menu",
+          "settings": {
+            "menu": "main-menu",
+            "heading": "Company",
+            "menu_spacing": 0,
+            "show_as_accordion": true,
+            "accordion_icon": "plus",
+            "accordion_dividers": true,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "heading_preset": "",
+            "link_preset": "",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "menu_JWGMq8": {
+          "type": "menu",
+          "name": "t:names.menu",
+          "settings": {
+            "menu": "main-menu",
+            "heading": "Follow",
+            "menu_spacing": 0,
+            "show_as_accordion": true,
+            "accordion_icon": "plus",
+            "accordion_dividers": true,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "heading_preset": "",
+            "link_preset": "",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "email-signup": {
+          "type": "email-signup",
+          "static": true,
+          "settings": {
+            "width": "fill",
+            "custom_width": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "heading": "",
+            "heading_preset": "",
+            "border_style": "all",
+            "border_width": 1,
+            "border_radius": 100,
+            "input_type_preset": "",
+            "style_class": "button-unstyled",
+            "display_type": "text",
+            "label": "Submit",
+            "integrated_button": true,
+            "button_type_preset": "",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "menu_kaEAxA",
+        "menu_NKfMpF",
+        "menu_gkRMgf",
+        "menu_JWGMq8"
+      ],
+      "name": "t:names.footer",
+      "settings": {
+        "section_width": "full-width",
+        "gap": 20,
+        "color_scheme": "scheme-2",
+        "newsletter_form_display": true,
+        "newsletter_heading_text": "Sign Up And Save 15%.",
+        "newsletter_details_text": "<p>#womaara in your inbox. Plus, be the first to know about new products, bundles & deals!<\/p>",
+        "footer_copyright_text": true,
+        "footer_bottom_menu": "main-menu",
+        "footer_logo_image": "shopify:\/\/shop_images\/Footer-Logo-Bottom-New.svg",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    }
+  },
+  "order": [
+    "footer_m9NzUG"
+  ]
+}

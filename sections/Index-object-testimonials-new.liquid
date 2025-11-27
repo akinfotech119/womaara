@@ -1,0 +1,140 @@
+{{ "Index-testimonial-grid-new.css" | asset_url | stylesheet_tag }}
+{{ "Index-object-testimonials-new.css" | asset_url | stylesheet_tag }}
+<script src="{{ 'Index-object-testimonials-new.js' | asset_url }}" defer></script>
+
+{%- liquid
+    assign background_color = section.settings.background_color
+    assign information_color = section.settings.information_color
+    assign desktop_top_padding = section.settings.desktop_top_padding
+    assign desktop_bottom_padding = section.settings.desktop_bottom_padding    
+    assign mobile_top_padding = section.settings.mobile_top_padding
+    assign mobile_bottom_padding = section.settings.mobile_bottom_padding
+    assign desktop_top_margin = section.settings.desktop_top_margin
+    assign mobile_top_margin = section.settings.mobile_top_margin
+-%}
+
+{%- style -%}
+    [data-section-id='{{ section.id }}'] {
+        background-color: {{ background_color }};
+        color: {{ information_color }};
+    }
+
+    @media (min-width: 0px) and (max-width: 989px) {
+        [data-section-id='{{ section.id }}'] {
+            padding: {{ mobile_top_padding }}px 0 {{ mobile_bottom_padding }}px;
+        }
+
+        [data-section-id='{{ section.id }}'] {
+            margin-top: {{ mobile_top_margin }}px;
+        }
+    }
+
+    @media (min-width: 990px) and (max-width: 9999px) {
+        [data-section-id='{{ section.id }}'] {
+            padding: {{ desktop_top_padding }}px 0 {{ desktop_bottom_padding }}px;
+        }
+
+        [data-section-id='{{ section.id }}'] {
+            margin-top: {{ desktop_top_margin }}px;
+        }
+    }
+{%- endstyle -%}
+
+{%- if section.settings.testimonial != blank -%}
+    {%- assign testimonial = section.settings.testimonial -%}
+    {%- if testimonial.testimonial_lists.value != blank -%}
+        <section class="Index_object_testimonials_main_new"  data-section-id="{{ section.id }}">
+            <div class="page-width">
+                <div class="Index_object_testimonials_inner_new">
+                    <div class="Index_object_testimonials_loops_new">
+                        <div class="swiper Index_object_testimonials_slider">
+                            <div class="swiper-wrapper">                                    
+                                {%- for testimonial_lists in testimonial.testimonial_lists.value -%}
+                                    <div class="swiper-slide Index_object_testimonials_loops_block_new">
+                                        {%- render 'Index-testimonial-grid-new', testimonial_lists: testimonial_lists, class_info_new: 'Small_info_new' -%}
+                                    </div>
+                                {%- endfor -%}                 
+                            </div>
+                        </div>                            
+                    </div>                            
+                </div>
+            </div>
+        </section>
+    {%- endif -%}
+{%- endif -%}  
+
+{% schema %}
+{
+    "name": "Index Object Testimonials",
+    "class": "Index_object_testimonials_new",
+    "settings": [
+        {
+            "type": "header",
+            "content": "==== Color Settings ===="
+        },
+        {
+            "type": "color",
+            "id": "background_color",
+            "label": "Select Background Color",
+            "default": "#FFFAFA"
+        },
+        {
+            "type": "color",
+            "id": "information_color",
+            "label": "Select Information Color",
+            "default": "#3D3140"
+        },
+        {
+            "type": "header",
+            "content": "==== Layout Settings ===="
+        },
+        {
+            "type": "number",
+            "id": "desktop_top_padding",
+            "label": "Add Desktop Top Padding",
+            "default": 0
+        },
+        {
+            "type": "number",
+            "id": "desktop_bottom_padding",
+            "label": "Add Desktop Bottom Padding",
+            "default": 90
+        },
+        {
+            "type": "number",
+            "id": "mobile_top_padding",
+            "label": "Add Mobile Top Padding",
+            "default": 0
+        },
+        {
+            "type": "number",
+            "id": "mobile_bottom_padding",
+            "label": "Add Mobile Bottom Padding",
+            "default": 68
+        },
+        {
+            "type": "metaobject",
+            "id": "testimonial",
+            "label": "Select Testimonial Display",
+            "metaobject_type": "home_testimonial_selections"
+        },
+        {
+            "type": "number",
+            "id": "desktop_top_margin",
+            "label": "Add Desktop Top Margin",
+            "default": -40
+        },
+        {
+            "type": "number",
+            "id": "mobile_top_margin",
+            "label": "Add Mobile Top Margin",
+            "default": -48
+        }
+    ],
+    "presets": [
+        {
+            "name": "Index Object Testimonials"
+        }
+    ]
+}
+{% endschema %}

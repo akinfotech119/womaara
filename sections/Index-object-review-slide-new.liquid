@@ -1,0 +1,279 @@
+{{ "Index-object-review-slide-new.css" | asset_url | stylesheet_tag }}
+<script src="{{ 'Index-object-review-slide-new.js' | asset_url }}" defer></script>
+
+{%- liquid
+    assign background_color = section.settings.background_color
+    assign information_color = section.settings.information_color
+    assign desktop_top_padding = section.settings.desktop_top_padding
+    assign desktop_bottom_padding = section.settings.desktop_bottom_padding
+    assign mobile_top_padding = section.settings.mobile_top_padding
+    assign mobile_bottom_padding = section.settings.mobile_bottom_padding
+-%}
+
+{%- style -%}
+    [data-section-id='{{ section.id }}'] {
+        background-color: {{ background_color }};
+        color: {{ information_color }};
+    }
+
+    @media (min-width: 0px) and (max-width: 989px) {
+        [data-section-id='{{ section.id }}'] {
+            padding: {{ mobile_top_padding }}px 0 {{ mobile_bottom_padding }}px;
+        }
+    }
+
+    @media (min-width: 990px) and (max-width: 9999px) {
+        [data-section-id='{{ section.id }}'] {
+            padding: {{ desktop_top_padding }}px 0 {{ desktop_bottom_padding }}px;
+        }
+    }
+{%- endstyle -%}
+
+{%- if section.settings.review_slider != blank -%}
+    {%- assign review_slider = section.settings.review_slider -%}    
+    <section class="Index_object_review_slide_main_new"  data-section-id="{{ section.id }}">
+        <div class="page-width">
+            <div class="Index_object_review_slide_inner_new">
+                {%- if review_slider.left_heading_text.value != blank or review_slider.left_button_link.value != blank -%}
+                    <div class="Index_object_review_slide_boths_new">
+                        {%- if review_slider.left_heading_text.value != blank -%}
+                            <div class="Common_title_new Index_object_review_slide_boths_title_new">
+                                <{{ section.settings.heading_size }}>
+                                    {{ review_slider.left_heading_text.value }}
+                                </{{ section.settings.heading_size }}>
+                            </div>
+                        {%- endif -%}
+                        {%- if review_slider.left_button_text.value != blank and review_slider.left_button_link.value != blank -%}
+                            <div class="Index_object_review_slide_boths_button_new Desktop_only_new">
+                                <a href="{{ review_slider.left_button_link.value }}" class="{{ section.settings.button_style }}">
+                                    {{ review_slider.left_button_text.value }}
+                                </a>
+                            </div>
+                        {%- endif -%}                       
+                    </div>
+                {%- endif -%}
+                {%- if review_slider.review_slider_list.value != blank -%}
+                    <div class="Index_object_review_slide_loops_new">
+                        <div class="swiper Index_object_review_slide_slider">
+                            <div class="swiper-wrapper">                                    
+                                {%- for review_slider_list in review_slider.review_slider_list.value -%}
+                                    {%- if review_slider_list.top_heading_text.value != blank or review_slider_list.descriptions_text.value != blank or review_slider_list.author_name_text.value != blank or review_slider_list.author_detail_text.value != blank or review_slider_list.custom_image.value != blank or review_slider_list.add_button_link.value != blank or review_slider_list.selected_product.value != blank -%}
+                                        <div class="swiper-slide Index_object_review_slide_loops_block_new">
+                                            {%- if review_slider_list.top_heading_text.value != blank or review_slider_list.descriptions_text.value != blank or review_slider_list.author_name_text.value != blank or review_slider_list.author_detail_text.value != blank -%}
+                                                <div class="Index_object_review_slide_loops_block_static_new">
+                                                    {%- if review_slider_list.top_heading_text.value != blank -%}
+                                                        <div class="Index_object_review_slide_loops_block_static_text_new">
+                                                            {{ review_slider_list.top_heading_text.value }}
+                                                        </div>
+                                                    {%- endif -%}
+                                                    {%- if review_slider_list.descriptions_text.value != blank -%}
+                                                        <div class="Index_object_review_slide_loops_block_static_info_new">
+                                                            {{ review_slider_list.descriptions_text | metafield_tag }}
+                                                        </div>
+                                                    {%- endif -%}
+                                                    {%- if review_slider_list.author_name_text.value != blank or review_slider_list.author_detail_text.value != blank -%}
+                                                        <div class="Index_object_review_slide_loops_block_static_both_new">
+                                                            {%- if review_slider_list.author_name_text.value != blank -%}
+                                                                <div class="Index_object_review_slide_loops_block_static_both_title_new">
+                                                                    {{ review_slider_list.author_name_text.value }}
+                                                                </div>
+                                                            {%- endif -%}
+                                                            {%- if review_slider_list.author_detail_text.value != blank -%}
+                                                                <div class="Index_object_review_slide_loops_block_static_both_texts_new">
+                                                                    {{ review_slider_list.author_detail_text.value }}
+                                                                </div>
+                                                            {%- endif -%}
+                                                        </div>
+                                                    {%- endif -%}
+                                                </div>
+                                            {%- endif -%}
+                                            {%- if review_slider_list.custom_image.value != blank or review_slider_list.add_button_link.value != blank or review_slider_list.selected_product.value != blank -%}
+                                                {%- assign selected_product = review_slider_list.selected_product.value -%}
+                                                <div class="Index_object_review_slide_loops_block_overlay_new">
+                                                    {%- if review_slider_list.custom_image.value != blank or review_slider_list.add_button_link.value != blank -%}
+                                                        <div class="Index_object_review_slide_loops_block_overlay_boths_new">
+                                                            {%- if review_slider_list.custom_image.value != blank -%}
+                                                                {%- if review_slider_list.custom_image.value contains "files" -%}
+                                                                    <div class="Index_object_review_slide_loops_block_overlay_boths_image_new">
+                                                                        <a href="{{ selected_product.url }}">
+                                                                            {% render 'responsive-image-new',
+                                                                                desktop_image: review_slider_list.custom_image.value,
+                                                                                mobile_image: review_slider_list.custom_image.value,
+                                                                                class: 'Custom_image_new',
+                                                                                sizes: '(max-width: 749px) 100vw, 100vw',
+                                                                                fetchpriority: 'low', 
+                                                                            %}
+                                                                        </a>
+                                                                    </div>
+                                                                {%- endif -%}
+                                                            {%- endif -%}
+                                                            {%- if review_slider_list.add_button_text.value != blank and review_slider_list.add_button_link.value != blank -%}
+                                                                <div class="Index_object_review_slide_loops_block_overlay_boths_links_new">
+                                                                    <a href="{{ review_slider_list.add_button_link.value }}">
+                                                                        <span>{{ review_slider_list.add_button_text.value }}</span><svg width="16" height="8" viewBox="0 0 16 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.3536 4.03568C15.5488 3.84042 15.5488 3.52384 15.3536 3.32857L12.1716 0.146594C11.9763 -0.0486682 11.6597 -0.0486682 11.4645 0.146594C11.2692 0.341856 11.2692 0.658439 11.4645 0.853701L14.2929 3.68213L11.4645 6.51056C11.2692 6.70582 11.2692 7.0224 11.4645 7.21766C11.6597 7.41292 11.9763 7.41292 12.1716 7.21766L15.3536 4.03568ZM0 3.68213L4.37114e-08 4.18213L15 4.18213L15 3.68213L15 3.18213L-4.37114e-08 3.18213L0 3.68213Z" fill="#3D3140"/></svg>
+                                                                    </a>
+                                                                </div>
+                                                            {%- endif -%}
+                                                        </div>
+                                                    {%- endif -%}
+                                                    {%- if review_slider_list.selected_product.value != blank -%}
+                                                        <div class="Index_object_review_slide_loops_block_overlay_items_new">
+                                                            <div class="Index_object_review_slide_loops_block_overlay_items_icons_new">
+                                                                <svg width="74" height="14" viewBox="0 0 74 14" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_3_1128)"><path d="M6.48327 11.0009C6.80106 10.8091 7.19894 10.8091 7.51674 11.0009L9.297 12.0754C10.0543 12.5325 10.9885 11.8535 10.7876 10.992L10.3151 8.9668C10.2308 8.60531 10.3536 8.22684 10.6342 7.98379L12.2086 6.61989C12.8772 6.04068 12.5198 4.94242 11.6384 4.86764L9.56786 4.69198C9.19829 4.66062 8.87642 4.42729 8.73168 4.08579L7.92072 2.17237C7.57613 1.35934 6.42387 1.35934 6.07928 2.17237L5.26832 4.08579C5.12358 4.42729 4.80171 4.66062 4.43214 4.69198L2.36163 4.86764C1.4802 4.94242 1.1228 6.04068 1.79139 6.61989L3.3658 7.98379C3.64636 8.22684 3.76921 8.60531 3.68487 8.9668L3.21241 10.992C3.01145 11.8535 3.94568 12.5325 4.703 12.0754L6.48327 11.0009Z" fill="#3D3140"/></g><g clip-path="url(#clip1_3_1128)"><path d="M21.4833 11.0009C21.8011 10.8091 22.1989 10.8091 22.5167 11.0009L24.297 12.0754C25.0543 12.5325 25.9885 11.8535 25.7876 10.992L25.3151 8.9668C25.2308 8.60531 25.3536 8.22684 25.6342 7.98379L27.2086 6.61989C27.8772 6.04068 27.5198 4.94242 26.6384 4.86764L24.5679 4.69198C24.1983 4.66062 23.8764 4.42729 23.7317 4.08579L22.9207 2.17237C22.5761 1.35934 21.4239 1.35934 21.0793 2.17237L20.2683 4.08579C20.1236 4.42729 19.8017 4.66062 19.4321 4.69198L17.3616 4.86764C16.4802 4.94242 16.1228 6.04068 16.7914 6.61989L18.3658 7.98379C18.6464 8.22684 18.7692 8.60531 18.6849 8.9668L18.2124 10.992C18.0115 11.8535 18.9457 12.5325 19.703 12.0754L21.4833 11.0009Z" fill="#3D3140"/></g><g clip-path="url(#clip2_3_1128)"><path d="M36.4833 11.0009C36.8011 10.8091 37.1989 10.8091 37.5167 11.0009L39.297 12.0754C40.0543 12.5325 40.9885 11.8535 40.7876 10.992L40.3151 8.9668C40.2308 8.60531 40.3536 8.22684 40.6342 7.98379L42.2086 6.61989C42.8772 6.04068 42.5198 4.94242 41.6384 4.86764L39.5679 4.69198C39.1983 4.66062 38.8764 4.42729 38.7317 4.08579L37.9207 2.17237C37.5761 1.35934 36.4239 1.35934 36.0793 2.17237L35.2683 4.08579C35.1236 4.42729 34.8017 4.66062 34.4321 4.69198L32.3616 4.86764C31.4802 4.94242 31.1228 6.04068 31.7914 6.61989L33.3658 7.98379C33.6464 8.22684 33.7692 8.60531 33.6849 8.9668L33.2124 10.992C33.0115 11.8535 33.9457 12.5325 34.703 12.0754L36.4833 11.0009Z" fill="#3D3140"/></g><g clip-path="url(#clip3_3_1128)"><path d="M51.4833 11.0009C51.8011 10.8091 52.1989 10.8091 52.5167 11.0009L54.297 12.0754C55.0543 12.5325 55.9885 11.8535 55.7876 10.992L55.3151 8.9668C55.2308 8.60531 55.3536 8.22684 55.6342 7.98379L57.2086 6.61989C57.8772 6.04068 57.5198 4.94242 56.6384 4.86764L54.5679 4.69198C54.1983 4.66062 53.8764 4.42729 53.7317 4.08579L52.9207 2.17237C52.5761 1.35934 51.4239 1.35934 51.0793 2.17237L50.2683 4.08579C50.1236 4.42729 49.8017 4.66062 49.4321 4.69198L47.3616 4.86764C46.4802 4.94242 46.1228 6.04068 46.7914 6.61989L48.3658 7.98379C48.6464 8.22684 48.7692 8.60531 48.6849 8.9668L48.2124 10.992C48.0115 11.8535 48.9457 12.5325 49.703 12.0754L51.4833 11.0009Z" fill="#3D3140"/></g><g clip-path="url(#clip4_3_1128)"><path d="M66.4833 11.0009C66.8011 10.8091 67.1989 10.8091 67.5167 11.0009L69.297 12.0754C70.0543 12.5325 70.9885 11.8535 70.7876 10.992L70.3151 8.9668C70.2308 8.60531 70.3536 8.22684 70.6342 7.98379L72.2086 6.61989C72.8772 6.04068 72.5198 4.94242 71.6384 4.86764L69.5679 4.69198C69.1983 4.66062 68.8764 4.42729 68.7317 4.08579L67.9207 2.17237C67.5761 1.35934 66.4239 1.35934 66.0793 2.17237L65.2683 4.08579C65.1236 4.42729 64.8017 4.66062 64.4321 4.69198L62.3616 4.86764C61.4802 4.94242 61.1228 6.04068 61.7914 6.61989L63.3658 7.98379C63.6464 8.22684 63.7692 8.60531 63.6849 8.9668L63.2124 10.992C63.0115 11.8535 63.9457 12.5325 64.703 12.0754L66.4833 11.0009Z" fill="#3D3140"/></g><defs><clipPath id="clip0_3_1128"><rect width="14" height="14" fill="white"/></clipPath><clipPath id="clip1_3_1128"><rect width="14" height="14" fill="white" transform="translate(15)"/></clipPath><clipPath id="clip2_3_1128"><rect width="14" height="14" fill="white" transform="translate(30)"/></clipPath><clipPath id="clip3_3_1128"><rect width="14" height="14" fill="white" transform="translate(45)"/></clipPath><clipPath id="clip4_3_1128"><rect width="14" height="14" fill="white" transform="translate(60)"/></clipPath></defs></svg>
+                                                            </div>
+                                                            {%- if selected_product.title != blank -%}
+                                                                <div class="Index_object_review_slide_loops_block_overlay_items_title_new">
+                                                                    <a href="{{ selected_product.url }}">
+                                                                        {{ selected_product.title }}
+                                                                    </a>
+                                                                </div>
+                                                            {%- endif -%}
+                                                            {%- if selected_product.metafields.custom.grid_short_description_text != blank -%}
+                                                                <div class="Index_object_review_slide_loops_block_overlay_items_infos_new">
+                                                                    {{ selected_product.metafields.custom.grid_short_description_text | metafield_tag }}
+                                                                </div>
+                                                            {%- endif -%}
+                                                            <div class="Index_object_review_slide_loops_block_overlay_items_button_new">
+                                                                <button class="button Common_button_new">
+                                                                    Add - {{ selected_product.price | money_without_trailing_zeros }}
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    {%- endif -%}
+                                                </div>
+                                            {%- endif -%}
+                                        </div>
+                                    {%- endif -%}
+                                {%- endfor -%}                 
+                            </div>
+                            <div class="swiper-pagination"></div>
+                        </div>                            
+                    </div>
+                {%- endif -%}
+                {%- if review_slider.left_button_text.value != blank and review_slider.left_button_link.value != blank -%}
+                    <div class="Index_object_review_slide_button_new Mobile_only_new">
+                        <a href="{{ review_slider.left_button_link.value }}" class="{{ section.settings.button_style }}">
+                            {{ review_slider.left_button_text.value }}
+                        </a>
+                    </div>
+                {%- endif -%}
+            </div>
+        </div>
+    </section> 
+{%- endif -%}  
+
+{% schema %}
+{
+    "name": "Index Object Review Slide",
+    "class": "Index_object_review_slide_new",
+    "settings": [
+        {
+            "type": "header",
+            "content": "==== Color Settings ===="
+        },
+        {
+            "type": "color",
+            "id": "background_color",
+            "label": "Select Background Color",
+            "default": "#FFFAFA"
+        },
+        {
+            "type": "color",
+            "id": "information_color",
+            "label": "Select Information Color",
+            "default": "#3D3140"
+        },
+        {
+            "type": "header",
+            "content": "==== Layout Settings ===="
+        },
+        {
+            "type": "number",
+            "id": "desktop_top_padding",
+            "label": "Add Desktop Top Padding",
+            "default": 70
+        },
+        {
+            "type": "number",
+            "id": "desktop_bottom_padding",
+            "label": "Add Desktop Bottom Padding",
+            "default": 90
+        },
+        {
+            "type": "number",
+            "id": "mobile_top_padding",
+            "label": "Add Mobile Top Padding",
+            "default": 48
+        },
+        {
+            "type": "number",
+            "id": "mobile_bottom_padding",
+            "label": "Add Mobile Bottom Padding",
+            "default": 0
+        },
+        {
+            "type": "select",
+            "id": "heading_size",
+            "label": "Select Heading Size",
+            "default": "h2",
+            "options": [
+                {
+                    "label": "H1",
+                    "value": "h1"
+                },
+                {
+                    "label": "H2",
+                    "value": "h2"
+                },
+                {
+                    "label": "H3",
+                    "value": "h3"
+                },
+                {
+                    "label": "H4",
+                    "value": "h4"
+                },
+                {
+                    "label": "H5",
+                    "value": "h5"
+                },
+                {
+                    "label": "H6",
+                    "value": "h6"
+                },
+                {
+                    "label": "Span",
+                    "value": "span"
+                }
+            ]
+        },
+        {
+            "type": "select",
+            "id": "button_style",
+            "label": "Add Button Style",
+            "default": "button Common_button_new",
+            "options": [
+                {
+                    "label": "Primary Button",
+                    "value": "button Common_button_new"
+                },
+                {
+                    "label": "Secondary Button",
+                    "value": "button Common_button_new Button_white_new"
+                }
+            ]
+        },
+        {
+            "type": "metaobject",
+            "id": "review_slider",
+            "label": "Select Review Slider Display",
+            "metaobject_type": "home_review_slider_selections"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Index Object Review Slide"
+        }
+    ]
+}
+{% endschema %}

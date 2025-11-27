@@ -1,0 +1,156 @@
+{{ 'launching-soon.css' | asset_url | stylesheet_tag }}
+<div class="launching_soon_main">
+  <div class="mobile_tablet_hide">
+    {% if section.settings.logo != blank %}
+      <div class="logo_part page-width-wide">
+        <img src="{{ section.settings.logo | img_url: 'master' }}">
+      </div>
+    {% endif %}
+    <div class="content_part">
+      <div class="text_part">
+        {% if section.settings.sub_heading != blank %}
+          <div class="sub_heading">
+            <p>{{ section.settings.sub_heading }}</p>
+          </div>
+        {% endif %}
+        <div class="heading_main">
+          {% if section.settings.heading != blank %}
+            <p class="custom_heading">
+              {{ section.settings.heading }}
+              {{ section.settings.bold_heading }}
+            </p>
+            {% if section.settings.icon != blank %}
+              <img class="icon_img" src="{{ section.settings.icon | img_url: 'master' }}">
+            {% endif %}
+          {% endif %}
+        </div>
+        {% if section.settings.content != blank %}
+          <div class="content_rte">
+            {{ section.settings.content }}
+          </div>
+        {% endif %}
+      </div>
+      {% if section.settings.image != blank %}
+        <div class="image_part">
+          <div class="d_image">
+            <img class="half_img_bg" src="{{ section.settings.bg_image | img_url: 'master' }}">
+            <img class="half_img" src="{{ section.settings.image | img_url: 'master' }}">
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  <div class="mobile_tablet_show mobile_section">
+    <div class="logo_with_content">
+      <div class="m_logo_part">
+        <img
+          class="img{% if section.settings.mobile_logo != blank %} mobile_tablet_hide{% endif %}"
+          src="{{ section.settings.logo | img_url: 'master' }}"
+        >
+        {% if section.settings.mobile_logo != blank %}
+          <img class="img mobile_tablet_show" src="{{ section.settings.mobile_logo | img_url: 'master' }}">
+        {% endif %}
+      </div>
+      <div class="content_with_img">
+        {% if section.settings.sub_heading != blank %}
+          <div class="sub_heading">
+            <p>{{ section.settings.sub_heading }}</p>
+          </div>
+        {% endif %}
+        <div class="heading">
+          {% if section.settings.heading != blank %}
+            <p class="custom_heading">{{ section.settings.heading }}</p>
+          {% endif %}
+        </div>
+        {% if section.settings.image != blank %}
+          <div class="image_part">
+            <img
+              class="half_img{% if section.settings.mobile_image != blank %} mobile_tablet_hide{% endif %}"
+              src="{{ section.settings.image | img_url: 'master' }}"
+            >
+            {% if section.settings.mobile_image != blank %}
+              <img class="half_img mobile_tablet_show" src="{{ section.settings.mobile_image | img_url: 'master' }}">
+            {% endif %}
+          </div>
+        {% endif %}
+        {% if section.settings.icon != blank %}
+          <img class="icon_img" src="{{ section.settings.icon | img_url: 'master' }}">
+        {% endif %}
+        {% if section.settings.heading != blank %}
+          <p class="custom_heading_bold">{{ section.settings.bold_heading }}</p>
+        {% endif %}
+        {% if section.settings.content != blank %}
+          <div class="content_rte">
+            {{ section.settings.content }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="newsletter_part">
+    {% render 'launching-soon-newsletter' %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Launching Soon",
+  "settings": [
+    {
+      "type": "image_picker",
+      "label": "Logo",
+      "id": "logo"
+    },
+    {
+      "type": "image_picker",
+      "label": "Mobile logo",
+      "id": "mobile_logo"
+    },
+    {
+      "type": "inline_richtext",
+      "label": "Sub Heading",
+      "id": "sub_heading"
+    },
+    {
+      "type": "textarea",
+      "label": "Heading",
+      "id": "heading"
+    },
+    {
+      "type": "textarea",
+      "label": "Bold Heading",
+      "id": "bold_heading"
+    },
+    {
+      "type": "richtext",
+      "label": "Content",
+      "id": "content"
+    },
+    {
+      "type": "image_picker",
+      "label": "Icon",
+      "id": "icon"
+    },
+    {
+      "type": "image_picker",
+      "label": "Bg Image",
+      "id": "bg_image"
+    },
+    {
+      "type": "image_picker",
+      "label": "Image",
+      "id": "image"
+    },
+    {
+      "type": "image_picker",
+      "label": "Mobile Image",
+      "id": "mobile_image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Launching Soon"
+    }
+  ]
+}
+{% endschema %}

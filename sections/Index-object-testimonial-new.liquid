@@ -1,0 +1,178 @@
+{{ "Index-testimonial-grid-new.css" | asset_url | stylesheet_tag }}
+{{ "Index-object-testimonial-new.css" | asset_url | stylesheet_tag }}
+<script src="{{ 'Index-object-testimonial-new.js' | asset_url }}" defer></script>
+
+{%- liquid
+    assign background_color = section.settings.background_color
+    assign information_color = section.settings.information_color
+    assign desktop_top_padding = section.settings.desktop_top_padding
+    assign desktop_bottom_padding = section.settings.desktop_bottom_padding
+    assign mobile_top_padding = section.settings.mobile_top_padding
+    assign mobile_bottom_padding = section.settings.mobile_bottom_padding
+-%}
+
+{%- style -%}
+    [data-section-id='{{ section.id }}'] {
+        background-color: {{ background_color }};
+        color: {{ information_color }};
+    }
+
+    @media (min-width: 0px) and (max-width: 989px) {
+        [data-section-id='{{ section.id }}'] {
+            padding: {{ mobile_top_padding }}px 0 {{ mobile_bottom_padding }}px;
+        }
+    }
+
+    @media (min-width: 990px) and (max-width: 9999px) {
+        [data-section-id='{{ section.id }}'] {
+            padding: {{ desktop_top_padding }}px 0 {{ desktop_bottom_padding }}px;
+        }
+    }
+{%- endstyle -%}
+
+{%- if section.settings.testimonial != blank -%}
+    {%- assign testimonial = section.settings.testimonial -%}    
+    <section class="Index_object_testimonial_main_new"  data-section-id="{{ section.id }}">
+        <div class="Index_object_testimonial_inner_new">
+            {%- if testimonial.top_heading_text.value != blank or testimonial.social_share_link.value != blank -%}
+                <div class="Index_object_testimonial_mainboths_new">
+                    <div class="page-width">
+                        <div class="Index_object_testimonial_innerboths_new">
+                            {%- if testimonial.top_heading_text.value != blank -%}
+                                <div class="Common_title_new Index_object_testimonial_innerboths_title_new">
+                                    <{{ section.settings.heading_size }}>
+                                        {{ testimonial.top_heading_text.value }}
+                                    </{{ section.settings.heading_size }}>
+                                </div>
+                            {%- endif -%}
+                            {%- if testimonial.social_share_text.value != blank and testimonial.social_share_link.value != blank -%}
+                                <div class="Index_object_testimonial_innerboths_links_new">
+                                    <a href="{{ testimonial.social_share_link.value }}">
+                                        {{ testimonial.social_share_text.value }}
+                                    </a>
+                                </div>
+                            {%- endif -%}                         
+                        </div>
+                    </div>
+                </div>
+            {%- endif -%}
+            {%- if testimonial.testimonial_lists.value != blank -%}
+                <div class="Index_object_testimonial_mainloop_new">
+                    <div class="page-width">
+                        <div class="Index_object_testimonial_innerloop_new">
+                            <div class="swiper Index_object_testimonial_slider">
+                                <div class="swiper-wrapper">                                    
+                                    {%- for testimonial_lists in testimonial.testimonial_lists.value -%}
+                                        <div class="swiper-slide Index_object_testimonial_innerloop_block_new">
+                                            {%- render 'Index-testimonial-grid-new', testimonial_lists: testimonial_lists, class_info_new: 'Medium_info_new' -%}
+                                        </div>
+                                    {%- endfor -%}                 
+                                </div>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            {%- endif -%}
+        </div>
+    </section> 
+{%- endif -%}  
+
+{% schema %}
+{
+    "name": "Index Object Testimonial",
+    "class": "Index_object_testimonial_new",
+    "settings": [
+        {
+            "type": "header",
+            "content": "==== Color Settings ===="
+        },
+        {
+            "type": "color",
+            "id": "background_color",
+            "label": "Select Background Color",
+            "default": "#FFFAFA"
+        },
+        {
+            "type": "color",
+            "id": "information_color",
+            "label": "Select Information Color",
+            "default": "#3D3140"
+        },
+        {
+            "type": "header",
+            "content": "==== Layout Settings ===="
+        },
+        {
+            "type": "number",
+            "id": "desktop_top_padding",
+            "label": "Add Desktop Top Padding",
+            "default": 0
+        },
+        {
+            "type": "number",
+            "id": "desktop_bottom_padding",
+            "label": "Add Desktop Bottom Padding",
+            "default": 74
+        },
+        {
+            "type": "number",
+            "id": "mobile_top_padding",
+            "label": "Add Mobile Top Padding",
+            "default": 72
+        },
+        {
+            "type": "number",
+            "id": "mobile_bottom_padding",
+            "label": "Add Mobile Bottom Padding",
+            "default": 56
+        },
+        {
+            "type": "select",
+            "id": "heading_size",
+            "label": "Select Heading Size",
+            "default": "h2",
+            "options": [
+                {
+                    "label": "H1",
+                    "value": "h1"
+                },
+                {
+                    "label": "H2",
+                    "value": "h2"
+                },
+                {
+                    "label": "H3",
+                    "value": "h3"
+                },
+                {
+                    "label": "H4",
+                    "value": "h4"
+                },
+                {
+                    "label": "H5",
+                    "value": "h5"
+                },
+                {
+                    "label": "H6",
+                    "value": "h6"
+                },
+                {
+                    "label": "Span",
+                    "value": "span"
+                }
+            ]
+        },
+        {
+            "type": "metaobject",
+            "id": "testimonial",
+            "label": "Select Testimonial Display",
+            "metaobject_type": "home_testimonial_selections"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Index Object Testimonial"
+        }
+    ]
+}
+{% endschema %}

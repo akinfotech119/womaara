@@ -1,0 +1,150 @@
+{{ "Index-information-marquee-new.css" | asset_url | stylesheet_tag }}
+<script src="{{ 'Index-information-marquee-new.js' | asset_url }}" defer></script>
+
+{%- liquid
+    assign background_color = section.settings.background_color
+    assign information_color = section.settings.information_color
+    assign desktop_top_padding = section.settings.desktop_top_padding
+    assign desktop_bottom_padding = section.settings.desktop_bottom_padding
+    assign mobile_top_padding = section.settings.mobile_top_padding
+    assign mobile_bottom_padding = section.settings.mobile_bottom_padding
+-%}
+
+{%- style -%}
+    [data-section-id='{{ section.id }}'] {
+        background-color: {{ background_color }};
+        color: {{ information_color }};
+    }
+
+    @media (min-width: 0px) and (max-width: 989px) {
+        [data-section-id='{{ section.id }}'] {
+            padding: {{ mobile_top_padding }}px 0 {{ mobile_bottom_padding }}px;
+        }
+    }
+
+    @media (min-width: 990px) and (max-width: 9999px) {
+        [data-section-id='{{ section.id }}'] {
+            padding: {{ desktop_top_padding }}px 0 {{ desktop_bottom_padding }}px;
+        }
+    }
+{%- endstyle -%}
+
+{%- if section.blocks.size > 0 -%}
+    <section class="Index_information_marquee_main_new"  data-section-id="{{ section.id }}">
+        <div class="Index_information_marquee_inner_new">
+            <div class="Index_information_marquee_loops_new">
+                <div class="Index_information_marquee">
+                    <span>
+                        {%- for block in section.blocks -%}
+                            {%- if block.settings.title != blank -%}
+                                <div class="Index_information_marquee_loops_block_new">
+                                    {{ block.settings.title }}
+                                </div>  
+                            {%- endif -%}
+                        {%- endfor -%}
+                        {%- for block in section.blocks -%}
+                            {%- if block.settings.title != blank -%}
+                                <div class="Index_information_marquee_loops_block_new">
+                                    {{ block.settings.title }}
+                                </div>  
+                            {%- endif -%}
+                        {%- endfor -%}
+                        {%- for block in section.blocks -%}
+                            {%- if block.settings.title != blank -%}
+                                <div class="Index_information_marquee_loops_block_new">
+                                    {{ block.settings.title }}
+                                </div>  
+                            {%- endif -%}
+                        {%- endfor -%}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+{%- endif -%}  
+
+{% schema %}
+  {
+    "name": "Index Information Marquee",
+    "class": "Index_information_marquee_new",
+    "settings": [
+        {
+            "type": "header",
+            "content": "==== Color Settings ===="
+        },
+        {
+            "type": "color",
+            "id": "background_color",
+            "label": "Select Background Color",
+            "default": "#FFFAFA"
+        },
+        {
+            "type": "color",
+            "id": "information_color",
+            "label": "Select Information Color",
+            "default": "#3D3140"
+        },
+        {
+            "type": "header",
+            "content": "==== Layout Settings ===="
+        },
+        {
+            "type": "number",
+            "id": "desktop_top_padding",
+            "label": "Add Desktop Top Padding",
+            "default": 16
+        },
+        {
+            "type": "number",
+            "id": "desktop_bottom_padding",
+            "label": "Add Desktop Bottom Padding",
+            "default": 16
+        },
+        {
+            "type": "number",
+            "id": "mobile_top_padding",
+            "label": "Add Mobile Top Padding",
+            "default": 16
+        },
+        {
+            "type": "number",
+            "id": "mobile_bottom_padding",
+            "label": "Add Mobile Bottom Padding",
+            "default": 16
+        }
+    ],
+    "blocks": [
+        {
+            "type": "text",
+            "name": "Text",
+            "settings": [
+                {
+                    "type": "textarea",
+                    "id": "title",
+                    "label": "Add Main Information Text",
+                    "default": "Lorem Ipsum"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Index Information Marquee",
+            "blocks": [
+                {
+                    "type": "text"
+                },
+                {
+                    "type": "text"
+                },
+                {
+                    "type": "text"
+                },
+                {
+                    "type": "text"
+                }
+            ]
+        }
+    ]
+  }
+{% endschema %}

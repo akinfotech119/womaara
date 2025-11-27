@@ -1,0 +1,154 @@
+{{ "Index-icon-with-text-list-new.css" | asset_url | stylesheet_tag }}
+<script src="{{ 'Index-icon-with-text-list-new.js' | asset_url }}" defer></script>
+
+{%- liquid
+    assign background_color = section.settings.background_color
+    assign information_color = section.settings.information_color
+    assign desktop_top_padding = section.settings.desktop_top_padding
+    assign desktop_bottom_padding = section.settings.desktop_bottom_padding
+    assign mobile_top_padding = section.settings.mobile_top_padding
+    assign mobile_bottom_padding = section.settings.mobile_bottom_padding
+-%}
+
+{%- style -%}
+    [data-section-id='{{ section.id }}'] {
+        background-color: {{ background_color }};
+        color: {{ information_color }};
+    }
+
+    @media (min-width: 0px) and (max-width: 989px) {
+        [data-section-id='{{ section.id }}'] {
+            padding: {{ mobile_top_padding }}px 0 {{ mobile_bottom_padding }}px;
+        }
+    }
+
+    @media (min-width: 990px) and (max-width: 9999px) {
+        [data-section-id='{{ section.id }}'] {
+            padding: {{ desktop_top_padding }}px 0 {{ desktop_bottom_padding }}px;
+        }
+    }
+{%- endstyle -%}
+
+{%- if section.blocks.size > 0 -%}
+    <section class="Index_icon_with_text_list_main_new"  data-section-id="{{ section.id }}">
+        <div class="page-width">
+            <div class="Index_icon_with_text_list_inner_new">
+                <div class="Index_icon_with_text_list_loops_new">
+                    {%- for block in section.blocks -%}
+                        {%- if block.settings.image != blank and block.settings.title != blank -%}
+                            <div class="Index_icon_with_text_list_loops_block_new">
+                                {%- if block.settings.image != blank -%}
+                                    <div class="Index_icon_with_text_list_loops_block_image_new">
+                                        {% render 'responsive-image-new',
+                                            desktop_image: block.settings.image,
+                                            mobile_image: block.settings.image,
+                                            class: 'Custom_image_new',
+                                            sizes: '(max-width: 749px) 100vw, 100vw',
+                                            fetchpriority: 'low', 
+                                        %}
+                                    </div>
+                                {%- endif -%}
+                                {%- if block.settings.title != blank -%}
+                                    <div class="Index_icon_with_text_list_loops_block_title_new">
+                                        {{ block.settings.title }}
+                                    </div>
+                                {%- endif -%}
+                            </div>  
+                        {%- endif -%}
+                    {%- endfor -%}
+                </div>
+            </div>
+        </div>
+    </section>
+{%- endif -%}  
+
+{% schema %}
+  {
+    "name": "Index Icon With Text List",
+    "class": "Index_icon_with_text_list_new",
+    "settings": [
+        {
+            "type": "header",
+            "content": "==== Color Settings ===="
+        },
+        {
+            "type": "color",
+            "id": "background_color",
+            "label": "Select Background Color",
+            "default": "#FFFAFA"
+        },
+        {
+            "type": "color",
+            "id": "information_color",
+            "label": "Select Information Color",
+            "default": "#3D3140"
+        },
+        {
+            "type": "header",
+            "content": "==== Layout Settings ===="
+        },
+        {
+            "type": "number",
+            "id": "desktop_top_padding",
+            "label": "Add Desktop Top Padding",
+            "default": 60
+        },
+        {
+            "type": "number",
+            "id": "desktop_bottom_padding",
+            "label": "Add Desktop Bottom Padding",
+            "default": 60
+        },
+        {
+            "type": "number",
+            "id": "mobile_top_padding",
+            "label": "Add Mobile Top Padding",
+            "default": 48
+        },
+        {
+            "type": "number",
+            "id": "mobile_bottom_padding",
+            "label": "Add Mobile Bottom Padding",
+            "default": 48
+        }
+    ],
+    "blocks": [
+        {
+            "type": "icon-with-text",
+            "name": "Icon With Text",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Add Icon Image"
+                },
+                {
+                    "type": "richtext",
+                    "id": "title",
+                    "label": "Add Title Text",
+                    "default": "<p>Lorem ipsum dolor sit amet</p>"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Index Icon With Text List",
+            "blocks": [
+                {
+                    "type": "icon-with-text"
+                },
+                {
+                    "type": "icon-with-text"
+                },
+                {
+                    "type": "icon-with-text"
+                },
+                {
+                    "type": "icon-with-text"
+                }
+            ]
+        }
+    ]
+  }
+{% endschema %}
