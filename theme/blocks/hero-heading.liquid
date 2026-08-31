@@ -1,0 +1,46 @@
+<div
+  class="hero-heading-block"
+  style="
+    --heading-color: {{ block.settings.color }};
+    --heading-size: {{ block.settings.font_size }}px;
+  "
+  {{ block.shopify_attributes }}
+>
+
+  {% if block.settings.heading != blank %}
+    <h2 class="hero-heading">
+      {{ block.settings.heading | newline_to_br }}
+    </h2>
+  {% endif %}
+
+</div>
+
+{% schema %}
+{
+  "name": "Heading",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Stars, stripes,\nand soft towels"
+    },
+    {
+      "type": "color",
+      "id": "color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Font size",
+      "min": 20,
+      "max": 70,
+      "step": 1,
+      "unit": "px",
+      "default": 34
+    }
+  ]
+}
+{% endschema %}

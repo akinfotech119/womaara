@@ -1,0 +1,46 @@
+<div
+  class="hero-description-block"
+  style="
+    --description-color: {{ block.settings.color }};
+    --description-size: {{ block.settings.font_size }}px;
+  "
+  {{ block.shopify_attributes }}
+>
+
+  {% if block.settings.description != blank %}
+    <div class="hero-description">
+      {{ block.settings.description }}
+    </div>
+  {% endif %}
+
+</div>
+
+{% schema %}
+{
+  "name": "Description",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>July 4th essentials your whole family will love</p>"
+    },
+    {
+      "type": "color",
+      "id": "color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Font size",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    }
+  ]
+}
+{% endschema %}

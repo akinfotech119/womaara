@@ -1,0 +1,27 @@
+<div
+  class="hero-media-block"
+  {{ block.shopify_attributes }}
+>
+
+  <div class="hero-media-inner">
+
+    {% content_for "blocks" %}
+
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "Media",
+
+  "blocks": [
+    {
+      "type": "_hero-image"
+    },
+    {
+      "type": "_hero-video"
+    }
+  ]
+}
+{% endschema %}

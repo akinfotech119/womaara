@@ -1,0 +1,78 @@
+{{ 'custom-hero.css' | asset_url | stylesheet_tag }}
+
+<section
+  class="custom-hero-section"
+  {{ section.shopify_attributes }}
+>
+  <div class="custom-hero-container">
+
+    {% for block in section.blocks %}
+
+      {% case block.type %}
+
+        {% when '_hero-content' %}
+          <div class="custom-hero-content-area">
+            {% render block %}
+          </div>
+
+        {% when '_hero-media' %}
+          <div class="custom-hero-media-area">
+            {% render block %}
+          </div>
+
+      {% endcase %}
+
+    {% endfor %}
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom Hero",
+  "tag": "section",
+  "class": "custom-hero",
+
+  "blocks": [
+    {
+      "type": "_hero-content"
+    },
+    {
+      "type": "_hero-media"
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "Custom Hero",
+      "blocks": [
+        {
+          "type": "_hero-content",
+          "blocks": [
+            {
+              "type": "_hero-heading"
+            },
+            {
+              "type": "_hero-description"
+            },
+            {
+              "type": "_hero-button"
+            },
+            {
+              "type": "_hero-arrows"
+            }
+          ]
+        },
+        {
+          "type": "_hero-media",
+          "blocks": [
+            {
+              "type": "_hero-image"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
